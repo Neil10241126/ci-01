@@ -127,6 +127,8 @@ jobs:
         run: pnpm run build:next-app
 
   lighthouse:
+      needs: [detect-changes, lint-next-app, build-next-app]
+      if: ${{ needs.detect-changes.outputs.next-app == 'true' }}
       runs-on: ubuntu-latest
       steps:
         - name: Checkout code
