@@ -29,3 +29,6 @@
 
 # IDE and Editor
 **/.vscode
+
+# Lighthouse
+**/.lighthouseci

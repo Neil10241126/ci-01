@@ -9,16 +9,18 @@
     "build": "next build",
     "start": "next start --port 8080",
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
     "@emotion/cache": "11.14.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.0",
+    "@lhci/cli": "^0.14.0",
     "@mui/icons-material": "6.4.7",
     "@mui/material": "6.4.7",
     "@mui/material-nextjs": "6.4.3",
+    "@repo/ui": "workspace:*",
     "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -26,9 +28,9 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "typescript": "5.8.2",
     "@types/node": "22.13.9",
     "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4"
+    "@types/react-dom": "19.0.4",
+    "typescript": "5.8.2"
   }
 }
