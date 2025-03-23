@@ -30,6 +30,14 @@ jobs:
         with:
           files: apps/next-app-2/**
 
+            # 添加這段除錯訊息
+      - name: Debug changed files output
+        run: |
+          echo "Next App changes detected: ${{ steps.next-app-changes.outputs.any_changed }}"
+          echo "Next App 2 changes detected: ${{ steps.next-app-2-changes.outputs.any_changed }}"
+          echo "Next App changed files: ${{ steps.next-app-changes.outputs.all_changed_files }}"
+          echo "Next App 2 changed files: ${{ steps.next-app-2-changes.outputs.all_changed_files }}"
+
   lint-next-app:
     name: Lint next-app
     needs: detect-changes
