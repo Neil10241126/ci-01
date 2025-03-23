@@ -1,0 +1,31 @@
+# Dependencies
+**/node_modules
+
+# Next.js
+**/.next
+**/out
+**/build
+**/dist
+
+# Typescript
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Config
+**/.env
+**/.env.*
+
+# Turbo
+**/.turbo
+
+# Misc
+**/.DS_Store
+**/.pem
+
+# Cache and Logs
+.pnpm-debug.log*
+**/.cache
+**/coverage
+
+# IDE and Editor
+**/.vscode

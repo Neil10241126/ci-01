@@ -1,0 +1,31 @@
+{
+  "name": "monorepo",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "Createpair",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo run build",
+    "build:next-app": "turbo run build -F next-app",
+    "dev": "turbo run dev",
+    "dev:next-app": "turbo run dev -F next-app",
+    "lint": "turbo run lint",
+    "lint:next-app": "turbo run lint -F next-app",
+    "lint:@repo/ui": "turbo run lint -F @repo/ui",
+    "check-types": "turbo run check-types",
+    "check-types:next-app": "turbo run check-types -F next-app",
+    "check-types:@repo/ui": "turbo run check-types -F @repo/ui",
+    "docker:build": "docker build -t next-app -f apps/next-app/Dockerfile .",
+    "docker:run": "docker run -it --name next-app -p 8080:8080 next-app"
+  },
+  "devDependencies": {
+    "turbo": "2.4.4"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
