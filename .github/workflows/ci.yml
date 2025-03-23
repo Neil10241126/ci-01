@@ -1,4 +1,4 @@
-name: Featrue Branch
+name: CI
 
 on:
   push:
@@ -9,6 +9,9 @@ jobs:
   detect-changes:
     name: Detect Changes
     runs-on: ubuntu-latest
+    # 如果是 PR，需要添加權限
+    # permissions:
+    #   pull-requests: read
     outputs:
       next-app: ${{ steps.filter.outputs.next-app }}
       next-app-2: ${{ steps.filter.outputs.next-app-2 }}
@@ -16,12 +19,16 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          # 增加 fetch-depth 以確保可以找到 merge-base
+          fetch-depth: 20
 
       - name: Check for file changes
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v3
         id: filter
         with:
+          # 為 feature 分支指定基礎分支
+          # 這裡需要替換為您的主要開發分支，如 main 或 develop
+          base: dev
           filters: |
             next-app:
               - 'apps/next-app/**'
@@ -55,7 +62,9 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: pnpm run lint:next-app
+        run: |
+          cd apps/next-app
+          pnpm lint
 
   lint-next-app-2:
     name: Lint next-app-2
@@ -84,7 +93,9 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: pnpm run lint:next-app-2
+        run: |
+          cd apps/next-app-2
+          pnpm lint
 
   build-next-app:
     name: Build next-app
