@@ -11,11 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       next-app: ${{ steps.next-app-changes.outputs.any_changed }}
+      ui: ${{ steps.ui-changes.outputs.any_changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Check UI changes
+        id: ui-changes
+        uses: tj-actions/changed-files@v46
+        with:
+            files: packages/ui/**
 
       - name: Check Next App changes
         id: next-app-changes
@@ -27,6 +34,38 @@ jobs:
         run: |
           echo "Next App changes detected: ${{ steps.next-app-changes.outputs.any_changed }}"
           echo "Next App changed files: ${{ steps.next-app-changes.outputs.all_changed_files }}"
+          echo "UI changes detected: ${{ steps.ui-changes.outputs.any_changed }}"
+          echo "UI changed files: ${{ steps.ui-changes.outputs.all_changed_files }}"
+
+  lint-ui:
+    name: Lint UI
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.ui == 'true' }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm 9.0.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm run lint:@repo/ui
+
 
   lint-next-app:
     name: Lint next-app
