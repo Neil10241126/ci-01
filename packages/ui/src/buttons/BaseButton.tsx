@@ -10,7 +10,7 @@ interface Props extends ButtonProps {
 
 export const BaseButton = ({ label = 'Click me' }: Props) => {
   return (
-    <Button variant={'contained'} color={'secondary'} startIcon={<AddCircleIcon />}>{label}</Button>
+    <Button variant={'contained'} color={'primary'} startIcon={<AddCircleIcon />}>{label}</Button>
   );
 };
 
