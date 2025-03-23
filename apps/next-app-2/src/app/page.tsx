@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import { BaseButton } from '@repo/ui/buttons';
 
 const Home = () => {
   return (
@@ -15,9 +16,12 @@ const Home = () => {
         />
         <ol>
           <li>
-            Get started by editing <code>src/app/page.tsx100</code>.
+            Get started by editing <code>src/app/page.tsx100fafff</code>.
           </li>
           <li>Save and see your changes instantly.</li>
+          <li>
+            <BaseButton>Click me</BaseButton>
+          </li>
         </ol>
 
         <div className={styles.ctas}>
