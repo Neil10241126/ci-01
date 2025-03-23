@@ -1,8 +1,9 @@
-name: CI
+name: Featrue Branch
 
 on:
   push:
-  pull_request:
+    branches:
+      - feat/**
 
 jobs:
   detect-changes:
