@@ -1,0 +1,152 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  detect-changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      next-app: ${{ steps.filter.outputs.next-app }}
+      next-app-2: ${{ steps.filter.outputs.next-app-2 }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for file changes
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            next-app:
+              - 'apps/next-app/**'
+            next-app-2:
+              - 'apps/next-app-2/**'
+
+  lint-next-app:
+    name: Lint next-app
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.next-app == 'true' }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm 9.0.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: |
+          cd apps/next-app
+          pnpm lint
+
+  lint-next-app-2:
+    name: Lint next-app-2
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.next-app-2 == 'true' }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm 9.0.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: |
+          cd apps/next-app-2
+          pnpm lint
+
+  build-next-app:
+    name: Build next-app
+    needs: [detect-changes, lint-next-app]
+    if: ${{ needs.detect-changes.outputs.next-app == 'true' }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm 9.0.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: |
+          cd apps/next-app
+          pnpm build
+
+  build-next-app-2:
+    name: Build next-app-2
+    needs: [detect-changes, lint-next-app-2]
+    if: ${{ needs.detect-changes.outputs.next-app-2 == 'true' }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup pnpm 9.0.0
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+
+      - name: Setup Node.js 20 environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: |
+          cd apps/next-app-2
+          pnpm build

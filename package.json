@@ -10,8 +10,9 @@
   "scripts": {
     "build": "turbo run build",
     "build:next-app": "turbo run build -F next-app",
+    "build:next-app-2": "turbo run build -F next-app-2",
     "dev": "turbo run dev",
-    "dev:next-app": "turbo run dev -F next-app",
+    "dev:next-app-2": "turbo run dev -F next-app-2",
     "lint": "turbo run lint",
     "lint:next-app": "turbo run lint -F next-app",
     "lint:@repo/ui": "turbo run lint -F @repo/ui",
