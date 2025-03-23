@@ -10,8 +10,8 @@ jobs:
     name: Detect Changes
     runs-on: ubuntu-latest
     outputs:
-      next-app: ${{ steps.filter.outputs.changes }}
-      next-app-2: ${{ steps.filter.outputs.changes }}
+      next-app: ${{ steps.filter.outputs.next-app }}
+      next-app-2: ${{ steps.filter.outputs.next-app-2 }}
     steps:
       - name: Check out code
         uses: actions/checkout@v4
