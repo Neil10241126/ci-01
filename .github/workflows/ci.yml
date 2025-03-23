@@ -20,13 +20,13 @@ jobs:
 
       - name: Check Next App changes
         id: next-app-changes
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v46
         with:
           files: apps/next-app/**
 
       - name: Check Next App 2 changes
         id: next-app-2-changes
-        uses: tj-actions/changed-files@v41
+        uses: tj-actions/changed-files@v46
         with:
           files: apps/next-app-2/**
 
