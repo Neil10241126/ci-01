@@ -55,9 +55,7 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: |
-          cd apps/next-app
-          pnpm lint
+        run: pnpm run lint:next-app
 
   lint-next-app-2:
     name: Lint next-app-2
@@ -86,9 +84,7 @@ jobs:
         run: pnpm install
 
       - name: Lint
-        run: |
-          cd apps/next-app-2
-          pnpm lint
+        run: pnpm run lint:next-app-2
 
   build-next-app:
     name: Build next-app
