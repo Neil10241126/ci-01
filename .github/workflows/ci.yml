@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       next-app: ${{ steps.next-app-changes.outputs.any_changed }}
-      next-app-2: ${{ steps.next-app-2-changes.outputs.any_changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,12 +23,10 @@ jobs:
         with:
           files: apps/next-app/**
 
-      - name: Check Next App 2 changes
-        id: next-app-2-changes
-        uses: tj-actions/changed-files@v46
-        with:
-          files: apps/next-app-2/**
-
+      - name: Debug changed files output
+        run: |
+          echo "Next App changes detected: ${{ steps.next-app-changes.outputs.any_changed }}"
+          echo "Next App changed files: ${{ steps.next-app-changes.outputs.all_changed_files }}"
 
   lint-next-app:
     name: Lint next-app
@@ -60,34 +57,6 @@ jobs:
       - name: Lint
         run: pnpm run lint:next-app
 
-  lint-next-app-2:
-    name: Lint next-app-2
-    needs: detect-changes
-    if: ${{ needs.detect-changes.outputs.next-app-2 == 'true' }}
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup pnpm 9.0.0
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.0.0
-
-      - name: Setup Node.js 20 environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Lint
-        run: pnpm run lint:next-app-2
 
   build-next-app:
     name: Build next-app
@@ -116,37 +85,4 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: |
-          cd apps/next-app
-          pnpm build
-
-  build-next-app-2:
-    name: Build next-app-2
-    needs: [detect-changes, lint-next-app-2]
-    if: ${{ needs.detect-changes.outputs.next-app-2 == 'true' }}
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Setup pnpm 9.0.0
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.0.0
-
-      - name: Setup Node.js 20 environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
-        run: |
-          cd apps/next-app-2
-          pnpm build
+        run: pnpm run build:next-app
