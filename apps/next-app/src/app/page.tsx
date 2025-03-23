@@ -15,7 +15,7 @@ const Home = () => {
         />
         <ol>
           <li>
-            Get started by editing <code>src/app/page.tsx100</code>.
+            Get started by editing <code>src/app/page.tsxfffff10cc0afafafafffffff</code>.
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>

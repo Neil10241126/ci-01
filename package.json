@@ -15,6 +15,7 @@
     "dev:next-app-2": "turbo run dev -F next-app-2",
     "lint": "turbo run lint",
     "lint:next-app": "turbo run lint -F next-app",
+    "lint:next-app-2": "turbo run lint -F next-app-2",
     "lint:@repo/ui": "turbo run lint -F @repo/ui",
     "check-types": "turbo run check-types",
     "check-types:next-app": "turbo run check-types -F next-app",
